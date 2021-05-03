@@ -98,10 +98,10 @@ function getMarkDown(jsonInput)
             {
                 text = dressUp(text, "**");
             }
-			if (attr["code-block"])
-			{
-				startLastWith("~~~");
-			}
+	    if (attr["code-block"])
+	    {
+                startLastWith("~~~");
+            }
             if (attr.blockquote)
             {
                 startLastWith("> ");
