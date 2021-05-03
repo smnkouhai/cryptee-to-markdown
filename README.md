@@ -1,2 +1,6 @@
 # cryptee-to-markdown
-A simple js script to convert your .uecd crypt.ee documents to markdown
+A simple nodejs script to convert your .uecd [crypt.ee](https://github.com/cryptee) documents to markdown
+
+Usage:
+* Download .uecd files from crypt.ee app
+* `node cryptee-to-markdown.js <file>.uecd`
