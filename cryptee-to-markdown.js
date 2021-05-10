@@ -1,13 +1,5 @@
-/*
-TODO
-* Format:
-   * underline
-   * strike
-   * table ?
-* write output file
-* folder batch processing
-* improve bold + italic
-*/
+var fs = require('fs');
+var path = require('path');
 
 function getMarkDown(jsonInput)
 {
@@ -22,32 +14,32 @@ function getMarkDown(jsonInput)
     {
         return cloth + text + cloth;
     }
-	
-	function createCodeBlocks()
-	{
-		temp = result.split('\n');
-		var code = false;
-		for (var i in temp)
-		{
-			if (temp[i].startsWith("~~~"))
-			{
-				if (!code)
-				{
-					code = true;
-				}
-				else
-				{
-					temp[i] = temp[i].substr(3);
-				}
-			}
-			else if (code)
-			{
-				temp[i] += "~~~";
-				code = false;
-			}
-		}
-		result = temp.join('\n');
-	}
+    
+    function createCodeBlocks()
+    {
+        temp = result.split('\n');
+        var code = false;
+        for (var i in temp)
+        {
+            if (temp[i].startsWith("~~~"))
+            {
+                if (!code)
+                {
+                    code = true;
+                }
+                else
+                {
+                    temp[i] = temp[i].substr(3);
+                }
+            }
+            else if (code)
+            {
+                temp[i] += "~~~";
+                code = false;
+            }
+        }
+        result = temp.join('\n');
+    }
 
     var data = JSON.parse(jsonInput);
     var result = "";
@@ -98,8 +90,8 @@ function getMarkDown(jsonInput)
             {
                 text = dressUp(text, "**");
             }
-	    if (attr["code-block"])
-	    {
+            if (attr["code-block"])
+            {
                 startLastWith("~~~");
             }
             if (attr.blockquote)
@@ -109,18 +101,34 @@ function getMarkDown(jsonInput)
         }
         result += text;
     }
-	
-	// post processing
-	createCodeBlocks();
+    
+    // post processing
+    createCodeBlocks();
 
     return result;
 }
 
-var fs = require('fs');
-fs.readFile( process.argv[2], function (err, data) {
-  if (err) {
-    throw err; 
-  }
-  var md = getMarkDown(data);
-  console.log(md);
-});
+const folder = process.argv[2];
+const files = fs.readdirSync(folder);
+
+for (var i in files)
+{
+    const file = files[i];
+    
+    fs.readFile( path.join(folder, file), function (err, data)
+    {
+        if (err)
+        {
+            throw err; 
+        }
+        var md = getMarkDown(data);
+
+        fs.writeFile(path.join(folder, file.replace(".uecd", ".md")), md, function (err)
+        {
+            if (err)
+            {
+                throw err;
+            }
+        });
+    });
+}
