@@ -3,4 +3,4 @@ A simple nodejs script to convert your .uecd [crypt.ee](https://github.com/crypt
 
 Usage:
 * Download .uecd files from the crypt.ee app.
-* call `node node-ui.js <inputUecdFolder>` or open web.ui in browser.
+* call `node node-ui.js <inputUecdFolder>` or open `web-ui.html` in browser.
