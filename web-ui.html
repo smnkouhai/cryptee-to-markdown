@@ -1,0 +1,19 @@
+<html>
+  <head>
+  <script src="./cryptee-to-markdown.js"></script>
+  <script>
+	function convert()
+	{
+		var json = document.getElementById("input").value;
+		var md =getMarkDown(json);
+		console.log(md);
+		document.getElementById("result").innerHTML = "<pre>" + md + "</pre>"; 
+	}
+  </script>
+  </head>
+  <body>
+    <textarea id="input"></textarea>
+    <button onclick="convert();">Convertir</button>
+    <div id="result"></div>
+  </body>  
+</html>

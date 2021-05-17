@@ -1,6 +1,3 @@
-var fs = require('fs');
-var path = require('path');
-
 function getMarkDown(jsonInput)
 {
     function startLastWith(text)
@@ -108,27 +105,7 @@ function getMarkDown(jsonInput)
     return result;
 }
 
-const folder = process.argv[2];
-const files = fs.readdirSync(folder);
-
-for (var i in files)
+if (typeof module !== "undefined")
 {
-    const file = files[i];
-    
-    fs.readFile( path.join(folder, file), function (err, data)
-    {
-        if (err)
-        {
-            throw err; 
-        }
-        var md = getMarkDown(data);
-
-        fs.writeFile(path.join(folder, file.replace(".uecd", ".md")), md, function (err)
-        {
-            if (err)
-            {
-                throw err;
-            }
-        });
-    });
+	module.exports.convert = getMarkDown;
 }
