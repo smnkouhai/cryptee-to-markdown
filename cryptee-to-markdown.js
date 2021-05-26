@@ -49,7 +49,9 @@ function getMarkDown(jsonInput)
 		
         if (text.image)
         {
-            text = "![" + elt.attributes.alt + "](" + text.image + ")";
+            var alt = "";
+            if (elt.attributes && elt.attributes.alt) alt = elt.attributes.alt;
+            text = "![" + alt + "](" + text.image + ")";
         }
         if (text.divider)
         {
