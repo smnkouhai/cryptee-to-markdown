@@ -10,21 +10,19 @@ const files = fs.readdirSync(folder);
 for (var i in files)
 {
     const file = files[i];
+
+    if (file.indexOf('uecd') === -1) continue;
+    console.log(file);
     
-    fs.readFile( path.join(folder, file), function (err, data)
+    var data = fs.readFileSync( path.join(folder, file)); 
+
+    var md = getMarkDown.convert(data);
+
+    fs.writeFile(path.join(folder, file.replace(".uecd", ".md")), md, function (err)
     {
         if (err)
         {
-            throw err; 
+            throw err;
         }
-        var md = getMarkDown.convert(data);
-
-        fs.writeFile(path.join(folder, file.replace(".uecd", ".md")), md, function (err)
-        {
-            if (err)
-            {
-                throw err;
-            }
-        });
     });
 }
