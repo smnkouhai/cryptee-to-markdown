@@ -46,7 +46,7 @@ function getMarkDown(jsonInput)
     {
         var elt = data.ops[i];
         var text = elt.insert;
-
+		
         if (text.image)
         {
             text = "![" + elt.attributes.alt + "](" + text.image + ")";
@@ -59,6 +59,10 @@ function getMarkDown(jsonInput)
         if (elt.attributes)
         {
             var attr = elt.attributes;
+			if (attr.tag)
+			{
+				continue;
+			}
             if (attr.header)
             {
                 startLastWith("#".repeat(attr.header) + " " );
