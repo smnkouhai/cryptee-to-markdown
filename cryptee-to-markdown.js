@@ -63,7 +63,7 @@ function getMarkDown(jsonInput)
             var attr = elt.attributes;
 			if (attr.tag)
 			{
-				continue;
+				text = "#" + text;
 			}
             if (attr.header)
             {
