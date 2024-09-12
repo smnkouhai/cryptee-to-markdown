@@ -1,3 +1,5 @@
+const { deltaToMarkdown } = require('quill-delta-to-markdown');
+
 function getMarkDown(jsonInput)
 {
     function startLastWith(text)
@@ -39,6 +41,8 @@ function getMarkDown(jsonInput)
     }
 
     var data = JSON.parse(jsonInput);
+    return deltaToMarkdown(data.ops);
+
     var result = "";
     var code = false;
 
